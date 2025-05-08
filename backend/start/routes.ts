@@ -12,9 +12,6 @@ const SessionController = () => import("#controllers/session_controller");
 
 // start/routes.ts
 
-router.get("/auth/google", async ({ ally }) => {
-	return ally.use("google").redirect();
-});
 
 router.resource("session", SessionController);
 
