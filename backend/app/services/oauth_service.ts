@@ -3,20 +3,33 @@ import OAuthEmailUnverifiedException from "#exceptions/o_auth_email_unverified_e
 import env from "#start/env";
 import { OAuth2Client, type TokenPayload } from "google-auth-library";
 
-type Provider = "google" | "apple";
+export const providers = ["google"] as const;
 
-interface OauthProviderPayload {
+type Provider = (typeof providers)[number];
+
+export interface OAuthProviderPayload {
 	email: string;
 	name?: string;
 	profilePictureUrl?: string;
 }
 
-export class OauthService {
+export class OAuthService {
 	private readonly googleClient = new OAuth2Client();
 
-	public async verifyGoogleToken(
-		idToken: string
-	): Promise<OauthProviderPayload> {
+	public async verify(provider: Provider, idToken: string): Promise<OAuthProviderPayload> {
+		switch (provider) {
+			case "google":
+				return await this.verifyGoogleToken(idToken);
+			default:
+				{
+					// Ensures exhaustive check of providers
+					const _exhaustiveCheck: never = provider;
+				}
+				throw new InvalidOAuthTokenException();
+		}
+	}
+
+	private async verifyGoogleToken(idToken: string): Promise<OAuthProviderPayload> {
 		let payload: TokenPayload;
 
 		try {
@@ -53,7 +66,7 @@ export class OauthService {
 			email: payload.email,
 			name,
 			profilePictureUrl: payload.picture,
-		} satisfies OauthProviderPayload;
+		} satisfies OAuthProviderPayload;
 
 		return providerPayload;
 	}

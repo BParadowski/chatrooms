@@ -35,7 +35,8 @@
 			"indentWidth": 2,
 			"trailingCommas": "es5",
 			"arrowParentheses": "always",
-			"bracketSpacing": true
+			"bracketSpacing": true,
+			"lineWidth": 100
 		}
 	}
 }
