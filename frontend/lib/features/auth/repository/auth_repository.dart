@@ -14,10 +14,11 @@ class AuthRepository {
   Future<AuthLoginResult> logInWithEmail(String email, String password) async {
     final res = await dio.post(
       "/session",
-      data: {email: email, password: password},
+      data: {"email": email, "password": password},
     );
+    print(res);
 
-    await secureStorage.write(key: "token", value: res.data.value as String);
+    await secureStorage.write(key: "token", value: res.data["token"] as String);
     return AuthLoginResult.successful;
   }
 }

@@ -20,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           if (result == AuthLoginResult.successful) {
             // getToken and set headers in dio.
             final token = authRepository.getToken();
+            print("Succesfully ");
             print(token);
             emit(Authenticated());
           }
@@ -27,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         case OAuthCredentials():
           emit(AuthError("Oauth not implemented yet"));
+          break;
       }
     });
   }

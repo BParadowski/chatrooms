@@ -6,6 +6,8 @@ import 'package:frontend/features/auth/bloc/auth_events.dart';
 import 'package:frontend/features/auth/bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -23,6 +25,13 @@ class _LoginPageState extends State<LoginPage> {
         EmailAuthCredentials(email: email, password: password),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
