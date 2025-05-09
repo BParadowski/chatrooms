@@ -10,6 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this.authRepository) : super(AuthInitial()) {
     on<AuthLoginInitiated>((event, emit) async {
+      emit(AuthLoading());
       final credentials = event.credentials;
       switch (credentials) {
         case EmailAuthCredentials():
@@ -19,8 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
           if (result == AuthLoginResult.successful) {
             // getToken and set headers in dio.
-            final token = authRepository.getToken();
-            print("Succesfully ");
+            final token = await authRepository.getToken();
             print(token);
             emit(Authenticated());
           }

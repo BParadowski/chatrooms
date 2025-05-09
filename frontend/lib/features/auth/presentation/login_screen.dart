@@ -53,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context, state) {
           if (state is AuthLoading) {
             return Center(child: CircularProgressIndicator());
+          } else if (state is Authenticated) {
+            return Center(child: Text("Congrats, you're in! "));
           }
 
           return Padding(
