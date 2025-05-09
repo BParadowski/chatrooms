@@ -1,3 +1,4 @@
+import 'package:frontend/core/api_client/dio_client.dart';
 import 'package:frontend/core/secure_storage.dart';
 
 import 'auth_login_result.dart';
@@ -11,6 +12,12 @@ class AuthRepository {
   }
 
   Future<AuthLoginResult> logInWithEmail(String email, String password) async {
-    // Make a request to the server
+    final res = await dio.post(
+      "/session",
+      data: {email: email, password: password},
+    );
+
+    await secureStorage.write(key: "token", value: res.data.value as String);
+    return AuthLoginResult.successful;
   }
 }
