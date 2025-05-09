@@ -14,7 +14,8 @@ export default class SessionController {
 	) {}
 
 	async store({ request }: HttpContext): Promise<AccessToken> {
-		const loginData = await loginValidator.validate(request.body);
+		console.log(request.body());
+		const loginData = await loginValidator.validate(request.body());
 
 		// OAuth case
 		if ("provider" in loginData) {
