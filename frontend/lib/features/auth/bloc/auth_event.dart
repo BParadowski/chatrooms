@@ -1,4 +1,4 @@
-import 'package:frontend/features/auth/bloc/auth_credentials.dart';
+import 'package:frontend/features/auth/repository/auth_credentials.dart';
 
 sealed class AuthEvent {}
 

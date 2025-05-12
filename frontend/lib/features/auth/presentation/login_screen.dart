@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/bloc/auth_bloc.dart';
-import 'package:frontend/features/auth/bloc/auth_credentials.dart';
-import 'package:frontend/features/auth/bloc/auth_events.dart';
+import 'package:frontend/features/auth/repository/auth_credentials.dart';
+import 'package:frontend/features/auth/bloc/auth_event.dart';
 import 'package:frontend/features/auth/bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
