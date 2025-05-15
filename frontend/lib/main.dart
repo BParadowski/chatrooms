@@ -10,10 +10,9 @@ void main() {
   final authRepository = AuthRepository();
   final authBloc = AuthBloc(authRepository);
 
-  ApiClient.instance.configure(
+  ApiClient.instance.connectToAuth(
     getToken: authRepository.getToken,
-    eraseToken: authRepository.eraseToken,
-    onUnauthenticated: () {
+    onUnauthenticatedError: () {
       authBloc.add(AuthLogoutInitiated());
     },
   );

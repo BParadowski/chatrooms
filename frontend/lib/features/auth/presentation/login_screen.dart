@@ -27,6 +27,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  void _onLogoutPressed() {
+    context.read<AuthBloc>().add(AuthLogoutInitiated());
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -54,7 +58,17 @@ class _LoginPageState extends State<LoginPage> {
           if (state is AuthLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is Authenticated) {
-            return Center(child: Text("Congrats, you're in! "));
+            return Center(
+              child: Column(
+                children: [
+                  Text("Congrats, you're in! "),
+                  ElevatedButton(
+                    onPressed: _onLogoutPressed,
+                    child: Text("Log out"),
+                  ),
+                ],
+              ),
+            );
           }
 
           return Padding(
@@ -76,6 +90,12 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: _onLoginPressed,
                   child: Text('Login'),
                 ),
+                SizedBox(height: 16),
+                if (state is AuthError)
+                  Text(
+                    state.message,
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
               ],
             ),
           );

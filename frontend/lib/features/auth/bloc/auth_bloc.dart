@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case AuthLoginResult.networkError:
         emit(
           AuthError(
-            "The request timed out. Please check your internet connection.",
+            "Cannot initiate log in process. Please check your internet connection.",
           ),
         );
     }

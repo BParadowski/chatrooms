@@ -8,7 +8,7 @@ class EmailAuthCredentials extends AuthCredentials {
 
   @override
   toMap() {
-    return {email: email, password: password};
+    return {'email': email, 'password': password};
   }
 
   EmailAuthCredentials({required this.email, required this.password});
@@ -20,7 +20,7 @@ class OAuthCredentials extends AuthCredentials {
 
   @override
   toMap() {
-    return {provider: provider, idToken: idToken};
+    return {'provider': provider, 'idToken': idToken};
   }
 
   OAuthCredentials({required this.provider, required this.idToken});

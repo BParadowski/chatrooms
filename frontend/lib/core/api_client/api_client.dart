@@ -20,10 +20,9 @@ class ApiClient {
     ),
   );
 
-  void configure({
+  void connectToAuth({
     required Future<String?> Function() getToken,
-    required Future<void> Function() eraseToken,
-    required void Function() onUnauthenticated,
+    required void Function() onUnauthenticatedError,
   }) {
     dio.interceptors.add(
       InterceptorsWrapper(
@@ -39,9 +38,7 @@ class ApiClient {
 
         onError: (error, handler) async {
           if (error.response?.statusCode == 401) {
-            await eraseToken();
-            // Redirect the user to the login screen
-            onUnauthenticated();
+            onUnauthenticatedError();
           }
           handler.next(error);
         },
