@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/bloc/auth_bloc.dart';
@@ -30,9 +29,9 @@ class _SignInWithGoogleButtonState extends State<SignInWithGoogleButton> {
     _googleSignIn.onCurrentUserChanged.listen((
       GoogleSignInAccount? account,
     ) async {
-      print("Google user changed => running the listener");
-      print(account);
       if (account == null) return;
+
+      // TODO: what is the deal with this authorization?
 
       // bool isAuthorized = true;
       // if (kIsWeb) {
@@ -55,6 +54,7 @@ class _SignInWithGoogleButtonState extends State<SignInWithGoogleButton> {
     });
   }
 
+  /// Mobile only method for handling the sign in. On the web it is handled by the google sdk with logic in the button itself.
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
