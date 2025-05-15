@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/core/api_client/api_client.dart';
 import 'package:frontend/features/auth/bloc/auth_bloc.dart';
+import 'package:frontend/features/auth/bloc/auth_event.dart';
 import 'package:frontend/features/auth/presentation/login_screen.dart';
 import 'package:frontend/features/auth/repository/auth_repository.dart';
 
 void main() {
+  final authRepository = AuthRepository();
+  final authBloc = AuthBloc(authRepository);
+
+  ApiClient.instance.configure(
+    getToken: authRepository.getToken,
+    eraseToken: authRepository.eraseToken,
+    onUnauthenticated: () {
+      authBloc.add(AuthLogoutInitiated());
+    },
+  );
+
   runApp(
     RepositoryProvider(
-      create: (context) => AuthRepository(),
+      create: (context) => authRepository,
       child: BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(context.read<AuthRepository>()),
+        create: (context) => authBloc,
         child: const MaterialApp(title: 'Auth testing', home: LoginPage()),
       ),
     ),
