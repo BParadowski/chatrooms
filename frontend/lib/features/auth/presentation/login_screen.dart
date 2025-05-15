@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/bloc/auth_bloc.dart';
+import 'package:frontend/features/auth/presentation/sign_in_with_google/sign_in.dart';
 import 'package:frontend/features/auth/repository/auth_credentials.dart';
 import 'package:frontend/features/auth/bloc/auth_event.dart';
 import 'package:frontend/features/auth/bloc/auth_state.dart';
@@ -96,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     state.message,
                     style: TextStyle(color: Colors.redAccent),
                   ),
+                SignInWithGoogleButton(),
               ],
             ),
           );
